@@ -1,19 +1,23 @@
 project:
   type: website
   output-dir: docs
+  resources:
+    - notebooks/object-detection.ipynb
+    - AUDIT.md
+    - DATA.md
+    - COLAB.md
   render:
     - index.qmd
 
 website:
-  title: "Simplified Object Detection"
+  title: "Synthetic Object Detection"
+  description: "A custom ResNet18 detector and YOLOv8n on a controlled single-object task."
   navbar:
     left:
       - href: index.qmd
         text: Report
       - text: Notebook
-        href: https://github.com/O-2wice/synthetic-object-detection/blob/main/notebooks/object-detection.ipynb
-      - text: Open in Colab
-        href: https://colab.research.google.com/github/O-2wice/synthetic-object-detection/blob/main/notebooks/object-detection.ipynb
+        href: notebooks/object-detection.ipynb
     right:
       - icon: github
         href: https://github.com/O-2wice/synthetic-object-detection

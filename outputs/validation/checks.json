@@ -1,0 +1,36 @@
+{
+  "date": "2026-09-06",
+  "python": "3.11.15",
+  "packages": {
+    "torch": "2.14.0",
+    "torchvision": "0.29.0",
+    "ultralytics": "8.4.142",
+    "nbformat": "5.11.1",
+    "nbclient": "0.11.0"
+  },
+  "regression_tests": {
+    "passed": 8,
+    "command": "python tests/test_detection.py"
+  },
+  "notebook_pilot": {
+    "executed_code_cells": 7,
+    "errors": 0,
+    "custom_epochs": 2,
+    "yolo_epochs": 1,
+    "train_val_test": [
+      96,
+      24,
+      24
+    ]
+  },
+  "notebook_smoke": {
+    "executed_code_cells": 7,
+    "errors": 0,
+    "custom_epochs": 2,
+    "yolo_skipped": true
+  },
+  "assets_verified": 44,
+  "quarto_render": "passed",
+  "publication": "not performed; repository remains private",
+  "full_benchmark": "pending"
+}

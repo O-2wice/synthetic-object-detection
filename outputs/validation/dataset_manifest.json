@@ -1,0 +1,398 @@
+{
+  "seed": 42,
+  "size": 64,
+  "names": [
+    "Waldo",
+    "Wenda",
+    "Wizard Whitebeard"
+  ],
+  "background_review": {},
+  "counts": {
+    "train": 24,
+    "val": 6,
+    "test": 6
+  },
+  "backgrounds": {
+    "train": [
+      {
+        "sha256": "e430ee5310e450b64ead182a84ee1827e4a0b513d411079a9556d8fc65c7c0a2",
+        "file": "005.png"
+      },
+      {
+        "sha256": "63a8a4ea2fcc39d7d0819d37f0113accf48dd5fc3266c0915707ed7b8b81c691",
+        "file": "002.png"
+      },
+      {
+        "sha256": "b83cc6aeddbcff25de48f39ea60e5342d940bd80cd5e41a9e8e3ebe8dec6640a",
+        "file": "015.png"
+      },
+      {
+        "sha256": "5cc28505b1719a0bbaa8bee78518b50a4447a4f0a28b3e89b69e748eca4f5eb3",
+        "file": "011.png"
+      },
+      {
+        "sha256": "87b359a9c0547dc58d47a9dde11049057b264b6d5871d993d15067bcae0f9ee8",
+        "file": "012.png"
+      },
+      {
+        "sha256": "b4ab1d537b234de4529bd1ded7ff42e98811b9907a89d001a27b539bf856452c",
+        "file": "000.png"
+      },
+      {
+        "sha256": "cd66dc6bdca4419e4de09dc40c68e12482441dff114e25b1b425e2333777308e",
+        "file": "006.png"
+      },
+      {
+        "sha256": "dde68943debb91ce56518625f8c71fa48a150376bc7cde201bdd71037d72a3c9",
+        "file": "016.png"
+      },
+      {
+        "sha256": "6a1ba91661215e5b3ca09881482d7deb3369458b7a9d2a2dda693b16db5a97e6",
+        "file": "014.png"
+      },
+      {
+        "sha256": "b46d3e48394278b34600bda2281c1b5cfe2ad398870a4bff24820509a8ca1df5",
+        "file": "019.png"
+      },
+      {
+        "sha256": "db0eb9a1691ba1e284c760c67568ffd213b8720b1ba45e663e176af33c0664df",
+        "file": "001.png"
+      },
+      {
+        "sha256": "94447ed193f55526adb137e78d9244928ac7fb3d5bdcca38e21db3af529ffd3f",
+        "file": "010.png"
+      },
+      {
+        "sha256": "27102fbbb166bac0bde300d49406099b7d73d2d75a5bcaaadaabff4038196fbc",
+        "file": "013.png"
+      },
+      {
+        "sha256": "b439607d32696673e57d9127190ff58fd4350c55269d9d9c67633cf8e5d80606",
+        "file": "018.png"
+      },
+      {
+        "sha256": "2f346ea756a5119b08c55055719b61f135fc706cfd72fe9606973260e4044c5e",
+        "file": "004.png"
+      },
+      {
+        "sha256": "d7c423ad443a2537710fe987d62530e57cc842f7b7299033c7f2680d35812a5b",
+        "file": "007.png"
+      }
+    ],
+    "val": [
+      {
+        "sha256": "6c5e1ef3111b4828c5fc0ed6829846a50a99bda71041522d81a0906143922421",
+        "file": "017.png"
+      },
+      {
+        "sha256": "75609de3957645facc068cffaefa5091c94fb8025b6d2f9e0593bf79e038c052",
+        "file": "008.png"
+      }
+    ],
+    "test": [
+      {
+        "sha256": "149937791467781aef7db73522f72b61c2cffe4d5cf80f1617cfd473652b3d5b",
+        "file": "009.png"
+      },
+      {
+        "sha256": "3bea87173c38f6770ff1957a7e8895a62f31da439d22afbef6edd66c555e340e",
+        "file": "003.png"
+      }
+    ]
+  },
+  "samples": [
+    {
+      "split": "train",
+      "image": "00000.jpg",
+      "background_sha256": "94447ed193f55526adb137e78d9244928ac7fb3d5bdcca38e21db3af529ffd3f",
+      "class": 0,
+      "image_sha256": "720d438020b09492c15079a5b21c9dd6c5f2da327d645a2131436accc21b70f6",
+      "label_sha256": "2f8b9834adb5f2f56e80ae67c206efa6c72e846d3ff995c2971efd568a61fd46"
+    },
+    {
+      "split": "train",
+      "image": "00001.jpg",
+      "background_sha256": "63a8a4ea2fcc39d7d0819d37f0113accf48dd5fc3266c0915707ed7b8b81c691",
+      "class": 0,
+      "image_sha256": "7557e182a9d5f82e9543697f21b65e46786535a0de235dbb56e6203598db07cc",
+      "label_sha256": "e3b19afa8633f292ae91476eeef98e82453410281c680ab3d258ba1057066775"
+    },
+    {
+      "split": "train",
+      "image": "00002.jpg",
+      "background_sha256": "5cc28505b1719a0bbaa8bee78518b50a4447a4f0a28b3e89b69e748eca4f5eb3",
+      "class": 1,
+      "image_sha256": "2e7ae10c6de950f1eaa7de4b5c3cdacfb587ae9b993bbdf6b12d11785022d132",
+      "label_sha256": "8358c981e30e4fc3ac9b32d0678be22ca76b2790145fe06faeb537024f9b2bb2"
+    },
+    {
+      "split": "train",
+      "image": "00003.jpg",
+      "background_sha256": "b46d3e48394278b34600bda2281c1b5cfe2ad398870a4bff24820509a8ca1df5",
+      "class": 1,
+      "image_sha256": "1a7f8cca9df3cc5e88d20bfbbcbcf076097ccbfda446183b1c5492cb2db4365c",
+      "label_sha256": "92c37efe212ffabbcdaab2ee8e4de200444ebda1729923c40f198be80e644093"
+    },
+    {
+      "split": "train",
+      "image": "00004.jpg",
+      "background_sha256": "cd66dc6bdca4419e4de09dc40c68e12482441dff114e25b1b425e2333777308e",
+      "class": 0,
+      "image_sha256": "5c8ef574268bead076fff7ce1647ede2284ed0e0d53132c3fc2efdb1dddf90d7",
+      "label_sha256": "5314f6de66a3e7f3cd4823cda48267c4a4fb8a9f0bb31bb63db76bffb47f15e1"
+    },
+    {
+      "split": "train",
+      "image": "00005.jpg",
+      "background_sha256": "dde68943debb91ce56518625f8c71fa48a150376bc7cde201bdd71037d72a3c9",
+      "class": 0,
+      "image_sha256": "b343b0ad8e2719cec88d4317ec23754dcaf91d0bc87019b829d7fc26da57c5b3",
+      "label_sha256": "a20a47c350b6cd5373b5f7a9a7b67fc312ae0e2a6666a6d76152b2ef587aff8b"
+    },
+    {
+      "split": "train",
+      "image": "00006.jpg",
+      "background_sha256": "dde68943debb91ce56518625f8c71fa48a150376bc7cde201bdd71037d72a3c9",
+      "class": 1,
+      "image_sha256": "6ae9a8929c819fe176f875e8243061d1a8a30a8e068d4430a9e1227d63f202c3",
+      "label_sha256": "1a1c336282a8aa3ea3af042cccd9f6a8abc00815a4fd66f808927cb664e54f04"
+    },
+    {
+      "split": "train",
+      "image": "00007.jpg",
+      "background_sha256": "6a1ba91661215e5b3ca09881482d7deb3369458b7a9d2a2dda693b16db5a97e6",
+      "class": 1,
+      "image_sha256": "e089003d1d890e03f939b44724f04c80d8a381dcc4ae6f934e78931f1492dcd8",
+      "label_sha256": "3a81a7d7567cf3764f326a3bc064b6881b124b5bd2be140e6301bf00024be687"
+    },
+    {
+      "split": "train",
+      "image": "00008.jpg",
+      "background_sha256": "b4ab1d537b234de4529bd1ded7ff42e98811b9907a89d001a27b539bf856452c",
+      "class": 1,
+      "image_sha256": "9b19b52344d0de4effd85c71bffa8b08bcd509ce1750e13d1c2f2b2e7eaf2eba",
+      "label_sha256": "20b2969b154d389c97594d7329169ffa3ece6d1e530af028783a51e41f58aeb5"
+    },
+    {
+      "split": "train",
+      "image": "00009.jpg",
+      "background_sha256": "cd66dc6bdca4419e4de09dc40c68e12482441dff114e25b1b425e2333777308e",
+      "class": 2,
+      "image_sha256": "adff9c40171087eb5564d4815c41819c9389131855393e47de9bfdb4c4384d13",
+      "label_sha256": "5ceaa995ccb7dd40d908831bdb7205778843429251168379b1fd85e7b40e9b2c"
+    },
+    {
+      "split": "train",
+      "image": "00010.jpg",
+      "background_sha256": "b4ab1d537b234de4529bd1ded7ff42e98811b9907a89d001a27b539bf856452c",
+      "class": 1,
+      "image_sha256": "72adf5000b03e0d6d5820be62ebef564441bbf6509af3809471b202d55035d36",
+      "label_sha256": "06d45a5cbc481d65cf92972099db40e38956cccec3e83c94612def30eaf7eb82"
+    },
+    {
+      "split": "train",
+      "image": "00011.jpg",
+      "background_sha256": "b4ab1d537b234de4529bd1ded7ff42e98811b9907a89d001a27b539bf856452c",
+      "class": 2,
+      "image_sha256": "7f4e1bd75bb92d364f608242f7d85a926c550fd23cd891bd1a137a068a1a86a4",
+      "label_sha256": "ae0f3733e0e609c4bfe350c6a8ba604e007b7ca7307f380a1f57febe4c90c70d"
+    },
+    {
+      "split": "train",
+      "image": "00012.jpg",
+      "background_sha256": "6a1ba91661215e5b3ca09881482d7deb3369458b7a9d2a2dda693b16db5a97e6",
+      "class": 2,
+      "image_sha256": "e76a6fb5d504676b075c444d4dbcb3991b577ac043bed4fa8d0e7da798d405ae",
+      "label_sha256": "7f5ab5b41769fd8210179514da9cd6089f53ed4cfba907851f502cd89ef1f99b"
+    },
+    {
+      "split": "train",
+      "image": "00013.jpg",
+      "background_sha256": "db0eb9a1691ba1e284c760c67568ffd213b8720b1ba45e663e176af33c0664df",
+      "class": 0,
+      "image_sha256": "e8cd47ef41535e69caff8bff71242767ca4c7e8679634690fb003e6c8445af8b",
+      "label_sha256": "358cbc3a489dfd639b0be976f4fe7d957007ee97c86935d2a370c9e6f0a707c8"
+    },
+    {
+      "split": "train",
+      "image": "00014.jpg",
+      "background_sha256": "63a8a4ea2fcc39d7d0819d37f0113accf48dd5fc3266c0915707ed7b8b81c691",
+      "class": 0,
+      "image_sha256": "8c71ebcdb087adbc4a3637c0614b814e9ac2c466ba441259e1d1a3e0a15f3d02",
+      "label_sha256": "2bb9ca321934b09d087c7a309cd1bb81710edd2a5cd27ca7463748d415bf6915"
+    },
+    {
+      "split": "train",
+      "image": "00015.jpg",
+      "background_sha256": "6a1ba91661215e5b3ca09881482d7deb3369458b7a9d2a2dda693b16db5a97e6",
+      "class": 0,
+      "image_sha256": "a6b32be0105869f90f428fd16af6a0b04191db5b3580d9b88d11a03fa2c59fc2",
+      "label_sha256": "35393e6ed07e91fd35eff6e90b6a0f16b4f7a078f8cd124706edfe92a585a90d"
+    },
+    {
+      "split": "train",
+      "image": "00016.jpg",
+      "background_sha256": "db0eb9a1691ba1e284c760c67568ffd213b8720b1ba45e663e176af33c0664df",
+      "class": 2,
+      "image_sha256": "ef5278d0dfa0b425f022400efe1b2d61f31bd1639b5817b887ab8182425983cd",
+      "label_sha256": "cae7556d38bebcc8657cd6fc7d1152aecf94a6e02c12c09cdbf66f76424ef4ae"
+    },
+    {
+      "split": "train",
+      "image": "00017.jpg",
+      "background_sha256": "27102fbbb166bac0bde300d49406099b7d73d2d75a5bcaaadaabff4038196fbc",
+      "class": 2,
+      "image_sha256": "7108db75f6af16d8f08f21bddc81d9c1b34b2c060c9a3ab52391bdb8eb26f8fd",
+      "label_sha256": "3b903f138a5f8731aa07fdc2e9d7316f3cdc6f6e810c76cfa7f9065da76f8b1e"
+    },
+    {
+      "split": "train",
+      "image": "00018.jpg",
+      "background_sha256": "6a1ba91661215e5b3ca09881482d7deb3369458b7a9d2a2dda693b16db5a97e6",
+      "class": 1,
+      "image_sha256": "f8338a5dfebf817304646b357f507a29bef4563ff595b5c48ac9a6ce814a6b89",
+      "label_sha256": "7577438d6605f84dc955b15909833d48e60b890183a849340b3ee0a7285e30a7"
+    },
+    {
+      "split": "train",
+      "image": "00019.jpg",
+      "background_sha256": "6a1ba91661215e5b3ca09881482d7deb3369458b7a9d2a2dda693b16db5a97e6",
+      "class": 1,
+      "image_sha256": "1677671b6f0caaaba8e8d41e2ce3d9a40ad97a9f1a61568567af6a062ffeb8df",
+      "label_sha256": "505b391a4f940c992c8fbea6e529249d3e795abe91035239ee756258f3930aab"
+    },
+    {
+      "split": "train",
+      "image": "00020.jpg",
+      "background_sha256": "27102fbbb166bac0bde300d49406099b7d73d2d75a5bcaaadaabff4038196fbc",
+      "class": 2,
+      "image_sha256": "1053930d50645ec3bb75b6809ce51d63f9e6e01f8f3f2576827d8a84131f96df",
+      "label_sha256": "196e9946aba9d6198028ecbca9cd950771161999cd20ddc469711ac34c2b890e"
+    },
+    {
+      "split": "train",
+      "image": "00021.jpg",
+      "background_sha256": "87b359a9c0547dc58d47a9dde11049057b264b6d5871d993d15067bcae0f9ee8",
+      "class": 2,
+      "image_sha256": "c3e864ac007406d9566b27088dea7df187e7575931b7eaf2857f64c65210e715",
+      "label_sha256": "021ed3557678e1748baeeeb490170d975a94600388746f3cff100983cc6b79e1"
+    },
+    {
+      "split": "train",
+      "image": "00022.jpg",
+      "background_sha256": "b83cc6aeddbcff25de48f39ea60e5342d940bd80cd5e41a9e8e3ebe8dec6640a",
+      "class": 0,
+      "image_sha256": "6b771454a53556929a12a3c3f92e0914ae354673bb4847491d433e0c57fc03e5",
+      "label_sha256": "d9f9e9d3a089c401410086f2cefd8ab28845319532dec2513234d55100566374"
+    },
+    {
+      "split": "train",
+      "image": "00023.jpg",
+      "background_sha256": "87b359a9c0547dc58d47a9dde11049057b264b6d5871d993d15067bcae0f9ee8",
+      "class": 2,
+      "image_sha256": "b84698f1d9be17c7b95b505903be175b88f6b21b486030ed23ec944cc8274c7f",
+      "label_sha256": "491970a6a390ac97797892b6c9e0baa9119e27b515646869c493fb520a9ace70"
+    },
+    {
+      "split": "val",
+      "image": "00000.jpg",
+      "background_sha256": "75609de3957645facc068cffaefa5091c94fb8025b6d2f9e0593bf79e038c052",
+      "class": 1,
+      "image_sha256": "cefa468f927a9aea246f9aa6848416c235626c10281f4b5a4873bffaf71f4a8f",
+      "label_sha256": "dd57bfdc25f89ebdc034460ae1a69c5d666946f01d558c4cacecd949e90ddec0"
+    },
+    {
+      "split": "val",
+      "image": "00001.jpg",
+      "background_sha256": "6c5e1ef3111b4828c5fc0ed6829846a50a99bda71041522d81a0906143922421",
+      "class": 2,
+      "image_sha256": "181286baf6e806711267aaa2c7a495c2630776914296a17397c4009db74fd6b6",
+      "label_sha256": "f22036b0607fb8b86c8cad055091292ca4e39a9acbc3d0d2867b94f89ebf57e7"
+    },
+    {
+      "split": "val",
+      "image": "00002.jpg",
+      "background_sha256": "75609de3957645facc068cffaefa5091c94fb8025b6d2f9e0593bf79e038c052",
+      "class": 1,
+      "image_sha256": "036c4c5beb815d68a3935b7ed4f22bdaf17735759466690a7c4ebeb604282003",
+      "label_sha256": "667e4e10533d51309633fb7ae6d489caef5f05c2e2aac7d4bd26d8f78e6293a4"
+    },
+    {
+      "split": "val",
+      "image": "00003.jpg",
+      "background_sha256": "75609de3957645facc068cffaefa5091c94fb8025b6d2f9e0593bf79e038c052",
+      "class": 0,
+      "image_sha256": "a787f2f32ba9895e7583d8f799305c7a406eb5778d8aacba70ae34dcfd4bd980",
+      "label_sha256": "7ac36a9199684afd6b880bf0663975950a68005bb4cc6ec530a0cbb29462d098"
+    },
+    {
+      "split": "val",
+      "image": "00004.jpg",
+      "background_sha256": "75609de3957645facc068cffaefa5091c94fb8025b6d2f9e0593bf79e038c052",
+      "class": 0,
+      "image_sha256": "8f5392d091edecd56a3e0f6099d7235d23734ecf2dc15921dc541fda2ddd20df",
+      "label_sha256": "6817abcb33c0f5e4c577d8c25eee4f883289e98169c2be68fbad9833506b0b4b"
+    },
+    {
+      "split": "val",
+      "image": "00005.jpg",
+      "background_sha256": "6c5e1ef3111b4828c5fc0ed6829846a50a99bda71041522d81a0906143922421",
+      "class": 2,
+      "image_sha256": "33a03d10e1316c17b3584e67b68227a2e8466d8169bb8ce0fa0cc31eebfadd07",
+      "label_sha256": "7771e2505ac7f5d5855b533f74e1ea7d9a2f7dbbe888667daee987f1f1954848"
+    },
+    {
+      "split": "test",
+      "image": "00000.jpg",
+      "background_sha256": "149937791467781aef7db73522f72b61c2cffe4d5cf80f1617cfd473652b3d5b",
+      "class": 1,
+      "image_sha256": "01a5e55b085eff2c528d83e9dc082ac2064ac5bc34487159babd1c715091a89f",
+      "label_sha256": "12bfddd1e137e758a9699a5f606d8de3a4b946ee6640d9da73a53b64f91c48ee"
+    },
+    {
+      "split": "test",
+      "image": "00001.jpg",
+      "background_sha256": "149937791467781aef7db73522f72b61c2cffe4d5cf80f1617cfd473652b3d5b",
+      "class": 0,
+      "image_sha256": "3a3619963f1799dc07ba7040adb79bcf3adf3ffa4054b39b5962fe6a416faca3",
+      "label_sha256": "1aa5530896219e09de71b6faef8a9a68f363448c04cff9d066efbde398eee305"
+    },
+    {
+      "split": "test",
+      "image": "00002.jpg",
+      "background_sha256": "3bea87173c38f6770ff1957a7e8895a62f31da439d22afbef6edd66c555e340e",
+      "class": 0,
+      "image_sha256": "c463be161a76202c481b014e83b65d36333af693309a198e8f7a8fbc9a1b3dba",
+      "label_sha256": "3a9e9faa3b0a90aff25a7b56271adf5672aca5d43cfdf7100fadd8147ede7a07"
+    },
+    {
+      "split": "test",
+      "image": "00003.jpg",
+      "background_sha256": "3bea87173c38f6770ff1957a7e8895a62f31da439d22afbef6edd66c555e340e",
+      "class": 1,
+      "image_sha256": "131052084164d2b347a595c558064582c28525d5eb9491aa342cad4c72b3e7b9",
+      "label_sha256": "5dd1070f299aabfd38481e379d60292d4cd437a4613e7c179adfba9903262140"
+    },
+    {
+      "split": "test",
+      "image": "00004.jpg",
+      "background_sha256": "149937791467781aef7db73522f72b61c2cffe4d5cf80f1617cfd473652b3d5b",
+      "class": 2,
+      "image_sha256": "37244d741423e608ed427c5bd256313cc7c0553af448f217a556c297ee5ecd01",
+      "label_sha256": "28c46f90307f1ee6dfd8288771f27f420133089a863edf21ddaa2fc55cc28894"
+    },
+    {
+      "split": "test",
+      "image": "00005.jpg",
+      "background_sha256": "149937791467781aef7db73522f72b61c2cffe4d5cf80f1617cfd473652b3d5b",
+      "class": 2,
+      "image_sha256": "361d83ea5b51527b1dd74b9cf26c3c23c31cdc4e319f3b3d46a97a3bff5268a9",
+      "label_sha256": "7ba5bc48ed052084e7b98368e798338d1669bbd0cf7dad64f09987fff52d1aab"
+    }
+  ],
+  "objects": {
+    "Waldo": "8e9f7d097e504621b726221443ba70e623fe260e495d008398104e29c5e57b9d",
+    "Wenda": "36991d33d0687389f6ce5c4d24cf2585c827bbfd34c68df2f7a8f0609c16d8d1",
+    "Wizard Whitebeard": "8e804dd459924488557ea207721722308577effd3a13be78264fd02ca12e826e"
+  }
+}

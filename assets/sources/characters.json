@@ -1,0 +1,55 @@
+{
+  "url": "https://waldo.candlewick.com/pdf/WaldoCharacterSheets20.pdf",
+  "downloaded": "2026-09-06",
+  "pdf_sha256": "8a4033c7d3602c6664966bcc7c47c8e6f3e43a5e324870818cffe20bfbc840e1",
+  "credit": "Where's Waldo? illustrations by Martin Handford; Candlewick Press character sheets. See original PDF for copyright notice.",
+  "preparation": "Remove PDF text only; render clipped vector artwork with alpha at 2x; crop alpha bounds; fit within 160x160 using Lanczos.",
+  "class_change": "Wenda replaces Wilma with project-owner approval; original Drive sources returned 404.",
+  "objects": [
+    {
+      "name": "Waldo",
+      "page": 1,
+      "crop_points": [
+        150,
+        35,
+        462,
+        756
+      ],
+      "size": [
+        68,
+        160
+      ],
+      "sha256": "a6c0934e34fb6d42e3fbda3d3acdf7bd6fd5fe1b05d75915507902f503438833"
+    },
+    {
+      "name": "Wenda",
+      "page": 3,
+      "crop_points": [
+        182,
+        35,
+        432,
+        756
+      ],
+      "size": [
+        55,
+        160
+      ],
+      "sha256": "d404ec0abdc54108424bebb19f488c100f44a81db74c0ce0ba509a5c5a4580db"
+    },
+    {
+      "name": "Wizard Whitebeard",
+      "page": 4,
+      "crop_points": [
+        148,
+        20,
+        488,
+        774
+      ],
+      "size": [
+        71,
+        160
+      ],
+      "sha256": "8b5d77929838ee96f283d2cf97f82cebe8f7c1130235c3cd8d3dcb8c018e577f"
+    }
+  ]
+}

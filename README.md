@@ -1,103 +1,120 @@
-# Simplified Object Detection
+# Synthetic Object Detection
 
-[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/O-2wice/synthetic-object-detection/blob/main/notebooks/object-detection.ipynb)
-![Runtime](https://img.shields.io/badge/runtime-CPU%20or%20GPU-blue)
-![Framework](https://img.shields.io/badge/framework-PyTorch-orange)
+Find a character in a cluttered scene: predict what it is and where it is.
 
-Find a character hidden in a cluttered scene: predict both what it is and where
-it is.
+Three transparent character cut-outs are composited onto backgrounds. Placement
+coordinates provide the labels. A custom ResNet18 detector learns classification
+and bounding-box regression, with YOLOv8n as a reference on the same generated data.
 
-No annotated dataset of these characters exists, so one is built. Object
-cut-outs are composited at random positions onto crawled doodle backgrounds, and
-the placement coordinates become the labels. A detector is then written from
-scratch — a pretrained CNN backbone with a classification head and a
-bounding-box head — and a YOLOv8 model is trained on the same data as a
-reference point.
+The [notebook](notebooks/object-detection.ipynb) runs the experiment.
+The [write-up](index.qmd) explains the method and evaluation.
 
-## Quick Start
+**Status:** the repository remains private. The revised character-data benchmark
+and YOLO training have not been completed. Historical scores are not presented as
+results of the corrected pipeline. Small geometric fixtures are used only for
+execution checks; their outputs live in `outputs/validation/`.
+The approved replacement character files and reviewed background collection are
+saved under `assets/` with source URLs and hashes. Wenda replaces the original
+Wilma class; the original Drive links returned 404.
 
-Open `notebooks/object-detection.ipynb` and run it top to bottom. A GPU runtime
-is worth it: the custom model trains for 20 epochs and YOLOv8 for 100.
+Validation completed: eight regression tests, a seven-cell smoke execution and
+a seven-cell real-image pilot. The pilot ran both models; the custom model still
+scored zero correct detections at IoU ≥ 0.5 after two epochs. It establishes that
+the revised pipeline runs, not that training is complete. See
+[validation evidence](outputs/validation/checks.json) and [pilot metrics](outputs/pilot/test_results.json).
 
-The notebook installs what it needs (`icrawler`, `rembg`, `torchsummary`,
-`ultralytics`) in its first cells, so nothing has to be prepared beforehand.
+## Run
 
-## Pipeline
+Use Python 3.11 or newer in a dedicated environment:
 
-1. Crawl doodle backgrounds from the web with `icrawler`.
-2. Load three object cut-outs with their backgrounds removed.
-3. Composite one object per background at a random position, recording the class
-   and box as YOLO-format labels.
-4. Build datasets and dataloaders over the generated splits.
-5. Define the detector: a backbone with class and box heads.
-6. Train with a composite loss, validation monitoring and early stopping.
-7. Evaluate with precision, recall, F1 and IoU, and visualise predictions.
-8. Train YOLOv8 on the same data and compare.
-
-## Corrections
-
-The experiment, architecture and epoch counts are unchanged from the original
-run. Three defects that affected the results were fixed.
-
-**Augmentation moved the pixels but not the labels.**
-
-```python
-train_transform = transforms.Compose([
-    transforms.RandomHorizontalFlip(),
-    transforms.RandomRotation(10),
-    ...
-])
+```powershell
+python -m venv .venv
+.venv\Scripts\python -m pip install -r requirements.txt
 ```
 
-A torchvision `Compose` only sees the image. The bounding box lives in a
-separate label file and did not move with it, so on roughly half of every epoch
-the model was shown a mirrored image and told the object was still on the side
-it had just left. The flip now happens inside the dataset, where the label is in
-scope and can be mirrored with it. Rotation was dropped rather than
-reimplemented: an axis-aligned box cannot represent a rotated object without
-growing to cover it, so rotating the label is not well defined here.
+Select that environment as the kernel for `notebooks/object-detection.ipynb`.
+The saved assets are ready to use; [DATA.md](DATA.md) explains how they were
+prepared. Run the notebook from top to bottom. See [COLAB.md](COLAB.md) for GPU setup.
 
-**Evaluation excluded one of the three classes.**
+The default experiment generates 5,000 training, 1,000 validation and 200 test
+images. The custom detector trains for up to 20 epochs; YOLOv8n trains for up to
+100. Full training needs a fresh run before any performance comparison is valid.
 
-```python
-valid_mask = true_classes[i] != 0   # meant to drop padding rows
+For a small execution check without external assets or weight downloads:
+
+```powershell
+.venv\Scripts\python scripts/execute_notebook.py --mode smoke
 ```
 
-Padding rows are `[0, 0, 0, 0, 0]`, but class 0 is Waldo — a real class. Every
-Waldo image therefore contributed a prediction while its ground truth was
-discarded. That is why the run reported precision `0.6450` against recall
-`1.0000`: with exactly one prediction and one ground truth per image those two
-numbers are arithmetically forced to be equal, so the gap was the bug rather
-than a property of the model. Padding is now identified by its zero-area box.
+This executes the same notebook on geometric fixtures and skips YOLO. It is not
+a substitute for running the character-data experiment. Repeating training in
+the same output directory requires `RESUME = True` in the notebook; use a new
+directory for an independent experiment.
 
-**The reported model summary did not describe the forward pass.** Images were
-generated at 640×640 and fed in at that size, while `torchsummary` was called
-with `(3, 224, 224)`. A resize to 224 was added to every split so the two agree.
-Because the labels are normalised to the image, resizing does not disturb them.
+`--mode pilot` runs two custom-model epochs and one YOLO epoch on 96 / 24 / 24
+actual character composites. Its outputs live in `outputs/pilot/`, separate from
+both smoke checks and the full benchmark.
 
-Also updated: `pretrained=True` to the current `weights=` API.
+After data generation, training can also run from a terminal:
 
-## Known Limitations
+```powershell
+.venv\Scripts\python scripts/train_detection.py --epochs 20
+.venv\Scripts\python scripts/train_detection.py --epochs 20 --resume
+.venv\Scripts\python scripts/train_detection.py --yolo --epochs 100 --output outputs/yolo_runs
+```
 
-Two design choices were left as they were, because they are the original
-author's decisions rather than defects, but both are worth naming:
+## Method
 
-- The neck pools features to `1×1` before the box head, which averages away the
-  spatial information that head exists to use.
-- The box head is unbounded while the targets are normalised to `[0, 1]`, so it
-  begins by predicting boxes that cannot exist.
+Source backgrounds are split before compositing, with exact decoded duplicates
+removed. Validation and test transformations are deterministic. Training flips
+move the image and box together. Invalid or missing labels stop the run.
 
-Both limit localisation quality and are the first things worth changing next.
+The custom detector fine-tunes a pretrained ResNet18. Its classification head
+pools globally; its box head keeps a 4 × 4 spatial grid. Predicted boxes are
+constrained to fit the image. The objective is cross-entropy plus five times
+Smooth L1. Validation loss selects the best checkpoint.
+Layer normalization and conservative box-head initialization prevent the early
+sigmoid saturation found in the first real-data pilot.
 
-## Layout
+Both models use a shared single-object evaluation protocol: retain one prediction
+per image, match the class and require IoU ≥ 0.5. YOLO may abstain. Reported AP50
+uses all-points interpolation; native YOLO metrics are reported separately.
+YOLO sees 640-pixel images and trains longer than the 224-pixel custom detector,
+so this is not an equal-budget architecture comparison.
+
+## Report and checks
+
+```powershell
+.venv\Scripts\python -m unittest discover -s tests -v
+.venv\Scripts\python scripts/build_report.py
+quarto render
+```
+
+The report renders to `docs/` using saved artifacts; rendering never starts
+training or downloads data. Publishing is a separate step and is not enabled.
 
 ```text
-index.qmd                      # the write-up, rendered to docs/
-notebooks/
-  object-detection.ipynb       # the experiment
-scripts/
-  extract_notebook_artifacts.py  # recovers figures and metrics from a run
-outputs/
-  models/                      # checkpoints (gitignored)
-  metrics/                     # results and history
+notebooks/object-detection.ipynb   # narrative and executable experiment
+src/detection.py                  # data, model, training, shared metrics
+src/visualization.py              # sample, loss and prediction figures
+scripts/                          # notebook execution, training, report export
+tests/                            # correctness regression checks
+data/                             # local assets and generated data (ignored)
+assets/                           # downloaded sources, prepared cut-outs, backgrounds
+outputs/models/                   # checkpoints and per-run artifacts (ignored)
+outputs/metrics/                  # full experiment metrics, when available
+outputs/validation/               # explicitly labeled fixture-run evidence
+outputs/pilot/                    # short real-image execution run
+index.qmd                         # Quarto write-up
 ```
+
+## Scope
+
+Three fixed character cut-outs, one object per image, fixed object scale and no
+occlusion or negative scenes. New backgrounds do not establish generalization
+to new poses or real photographs. Near-duplicate backgrounds need manual review.
+
+[AUDIT.md](AUDIT.md) records the corrections and remaining validation work.
+[DATA.md](DATA.md) records source requirements. The project originated from an
+ELTE Deep Network Development exercise; the task template was by Tamás Takács
+and Imre Molnár, and the original implementation was by Robert Ouko Oyombe.

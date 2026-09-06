@@ -1,0 +1,6 @@
+{
+  "reviewed": "2026-09-06",
+  "method": "Visual contact-sheet inspection; no visible target characters. Conservative removal of related recolors, decorative variants, stock previews and multi-panel compositions.",
+  "excluded": ["000001.jpg", "000003.jpg", "000010.jpg", "000017.jpg", "000018.jpg", "000019.jpg", "000022.jpg", "000023.jpg", "000024.jpg", "000026.jpg", "000031.jpg", "000032.jpg", "000034.jpg", "000035.jpg", "000036.jpg", "000038.jpg", "000039.jpg", "000040.jpg"],
+  "limitations": "Visual review cannot prove the absence of near duplicates; source reuse rights have not been cleared for public redistribution."
+}

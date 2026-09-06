@@ -1,0 +1,36 @@
+{
+  "samples": 24,
+  "predictions": 24,
+  "true_positives": 0,
+  "precision": 0.0,
+  "recall": 0.0,
+  "f1": 0.0,
+  "class_accuracy": 0.375,
+  "mean_iou": 0.045219138565046973,
+  "map50_all_points": 0.0,
+  "ap50_by_class": {
+    "Waldo": 0.0,
+    "Wenda": 0.0,
+    "Wizard Whitebeard": 0.0
+  },
+  "iou_threshold": 0.5,
+  "protocol": "one-top-confidence-box-per-image",
+  "forward_ms_per_image": 33.75635833329701,
+  "timing_scope": "warm forward only; excludes loading, transfers and postprocessing",
+  "device": "cpu",
+  "config": {
+    "dataset_sha256": "2a95499d7ac36d124d9399b190506be97e1ea54a98018ca2cd74f94cb37ebf9a",
+    "size": 224,
+    "seed": 42,
+    "pretrained": true,
+    "batch_size": 16,
+    "patience": 5,
+    "architecture": "resnet18-spatial4-layernorm-validbox-v2"
+  },
+  "epochs_completed": 2,
+  "selected_epoch": 1,
+  "parameters": 13423431,
+  "torch_version": "2.14.0+cpu",
+  "run_mode": "pilot",
+  "benchmark_result": false
+}

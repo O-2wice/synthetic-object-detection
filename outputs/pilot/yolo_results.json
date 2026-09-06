@@ -1,0 +1,33 @@
+{
+  "shared_protocol": {
+    "samples": 24,
+    "predictions": 24,
+    "true_positives": 6,
+    "precision": 0.25,
+    "recall": 0.25,
+    "f1": 0.25,
+    "class_accuracy": 0.3333333333333333,
+    "mean_iou": 0.324279585117973,
+    "map50_all_points": 0.11288638262322472,
+    "ap50_by_class": {
+      "Waldo": 0.33865914786967416,
+      "Wenda": 0.0,
+      "Wizard Whitebeard": 0.0
+    },
+    "iou_threshold": 0.5,
+    "protocol": "one-top-confidence-box-per-image"
+  },
+  "native_test": {
+    "metrics/precision(B)": 0.0023419235329147532,
+    "metrics/recall(B)": 0.6666666666666666,
+    "metrics/mAP50(B)": 0.034248495462235885,
+    "metrics/mAP50-95(B)": 0.007989565222756014,
+    "fitness": 0.007989565222756014
+  },
+  "note": "Native AP and operating thresholds differ from the shared protocol.",
+  "confidence_floor": 0.001,
+  "imgsz": 640,
+  "seed": 42,
+  "dataset_sha256": "2a95499d7ac36d124d9399b190506be97e1ea54a98018ca2cd74f94cb37ebf9a",
+  "run_mode": "pilot"
+}

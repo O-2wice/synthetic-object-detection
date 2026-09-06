@@ -21,3 +21,8 @@ outputs/yolo_runs/
 logs/
 wandb/
 runs/
+
+# Local source assets and generated datasets
+/data/
+/notebook-review.txt
+*.tmp
