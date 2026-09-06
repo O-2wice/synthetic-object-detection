@@ -1,0 +1,284 @@
+---
+title: "Simplified Object Detection"
+subtitle: "A single-object detector built from scratch, measured against YOLOv8"
+jupyter: python3
+---
+
+## Overview
+
+Find one object in a cluttered scene: say what it is, and where it is.
+
+The detector is written from scratch rather than assembled from a detection
+library, so every part stays visible: a ResNet-18 backbone, one head for the
+class, one for the box, and a composite objective that trains both at once.
+YOLOv8 is trained on the same data at the end, because a number without a
+baseline says very little.
+
+[The notebook](https://github.com/O-2wice/synthetic-object-detection/blob/main/notebooks/object-detection.ipynb)
+is the runnable artifact: it trains on a Colab GPU and writes the figures and
+metrics this page reads. That split keeps the page renderable anywhere, with no
+GPU and no checkpoints.
+
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/O-2wice/synthetic-object-detection/blob/main/notebooks/object-detection.ipynb)
+&nbsp;
+[Browse the repository](https://github.com/O-2wice/synthetic-object-detection)
+
+```{python}
+#| label: load-artifacts
+#| echo: false
+
+import json
+from pathlib import Path
+
+METRIC_DIR = Path("outputs/metrics")
+FIGURE_DIR = Path("outputs/figures")
+
+
+def load(name, default=None):
+    path = METRIC_DIR / name
+    return json.loads(path.read_text()) if path.exists() else default
+
+
+history = load("training_history.json")
+test_results = load("test_results.json")
+yolo_results = load("yolo_results.json")
+```
+
+## The Data Is Generated
+
+Each image places one object at a random position on procedurally drawn clutter.
+The label records the class and the box in normalized centre form, `cx cy w h`.
+
+The original coursework built its dataset by scraping Google Images for
+backgrounds with `icrawler` and pasting in character cut-outs downloaded from
+Drive. That cannot be rerun: search results drift, the crawler breaks, and the
+assets live nowhere in the repository.
+
+Generating makes the dataset a pure function of a seed:
+
+- a split reproduces identically on any machine
+- splits provably cannot overlap, because each owns a disjoint seed range
+- storage cost is zero
+- the object's position is **known**, not estimated, so labels are exact
+
+The clutter is not decoration. On a plain background the task collapses to
+finding the only non-uniform region, and the detector would never have to learn
+anything about the objects themselves.
+
+![Generated samples with their ground-truth boxes.](outputs/figures/training-samples.png)
+
+## Augmentation Has to Move the Label
+
+This is the correction that mattered most.
+
+The coursework version built its training transform this way:
+
+```python
+train_transform = transforms.Compose([
+    transforms.RandomHorizontalFlip(),
+    transforms.RandomRotation(10),
+    transforms.ToTensor(),
+    transforms.Normalize(...),
+])
+```
+
+A torchvision `Compose` operates on the image. It has no access to the bounding
+box, and the box sits in a separate label file. So the pixels moved and the
+label did not: on roughly half of every epoch, the model was shown a mirrored
+image and told the object was still on the side it had just left.
+
+Measured on the regenerated data, a flipped image scored against its unflipped
+label overlaps by about **0.12 IoU**. That is not noise added to the training
+signal. It is a wrong signal, supplied consistently, for half the run.
+
+Geometric augmentation therefore belongs in the dataset, where the label is in
+scope:
+
+```python
+def horizontal_flip(image, box):
+    """Mirror an image and its box together."""
+    return image.transpose(Image.FLIP_LEFT_RIGHT), Box(1.0 - box.cx, box.cy, box.w, box.h)
+```
+
+## The Detector
+
+A ResNet-18 backbone feeds two heads that share its features, so the backbone is
+shaped by both objectives at once.
+
+```python
+class SingleObjectDetector(nn.Module):
+    def __init__(self, num_classes=3, grid=3):
+        super().__init__()
+        backbone = models.resnet18(weights=models.ResNet18_Weights.IMAGENET1K_V1)
+        self.backbone = nn.Sequential(*list(backbone.children())[:-2])
+        self.pool = nn.AdaptiveAvgPool2d((grid, grid))
+
+        feature_dim = 512 * grid * grid
+        self.classifier = nn.Sequential(...)          # -> num_classes
+        self.box_head = nn.Sequential(..., nn.Sigmoid())  # -> cx, cy, w, h
+```
+
+Two departures from the coursework model, both about localization:
+
+**The neck keeps a coarse spatial grid.** The original pooled to `1x1`, which
+averages away *where* things are, and then asked a linear layer to regress
+`cx, cy` from that vector. Pooling to `3x3` preserves position at negligible
+cost.
+
+**The box head ends in a sigmoid.** Targets are normalized to `[0, 1]`. An
+unbounded head begins by predicting boxes that cannot exist and spends its early
+epochs walking back into range, which is the same range mismatch that capped the
+colorization project in this portfolio, running in the other direction.
+
+## The Objective
+
+Detection trains two different kinds of prediction at once, so the loss is a
+weighted sum:
+
+$$
+\mathcal{L} = \lambda_{cls}\,\mathcal{L}_{CE}
+            + \lambda_{L_1}\,\mathcal{L}_{\text{smooth }L_1}
+            + \lambda_{IoU}\,(1 - \text{IoU})
+$$
+
+The coursework used cross-entropy plus smooth L1. L1 treats each coordinate
+independently and is scale sensitive: an absolute error of 0.05 barely dents a
+large box and ruins a small one. Adding `1 - IoU` optimises the quantity the
+metric actually reports. Keeping L1 matters too, because when two boxes do not
+overlap at all the IoU term is flat at zero and provides no gradient to move
+them together.
+
+## Metrics, and a Bug Worth Naming
+
+Every image holds exactly one object and the model emits exactly one prediction.
+The number of predictions and the number of ground truths are therefore equal by
+construction, which forces precision and recall to be **the same number**.
+
+The original notebook reported:
+
+```text
+Precision:  0.6450
+Recall:     1.0000
+```
+
+Those cannot both be right. The filter meant to drop padding rows was
+`true_classes[i] != 0`, and class 0 was a real class, so every image of that
+class contributed a prediction but no ground truth. One third of the test set
+was removed from recall's denominator and left in precision's. The gap between
+the two numbers was the size of the bug, not a property of the model.
+
+What is reported here instead:
+
+- **class accuracy** — did it name the right object?
+- **mean IoU** — how well does the predicted box overlap the true one?
+- **detection rate** — the fraction where the class is right *and* IoU ≥ 0.5,
+  the single number that covers both heads
+
+```{python}
+#| label: results
+#| echo: false
+#| output: asis
+
+if test_results is None:
+    print("*Results appear here once the notebook has been run and its artifacts extracted.*")
+else:
+    rows = [
+        ("Test samples", f"{test_results['samples']:,}"),
+        ("Class accuracy", f"{test_results['class_accuracy']:.4f}"),
+        ("Mean IoU", f"{test_results['mean_iou']:.4f}"),
+        ("Detection rate (IoU ≥ 0.5)", f"**{test_results['detection_rate']:.4f}**"),
+    ]
+    print("| Metric | Value |\n|---|---|")
+    for name, value in rows:
+        print(f"| {name} | {value} |")
+```
+
+## Learning Curves
+
+The composite loss is plotted with its parts, because a flat total can hide one
+head still improving while the other has stopped.
+
+![Total loss and each component, for training and validation.](outputs/figures/loss-curves.png)
+
+```{python}
+#| label: curve-comment
+#| echo: false
+#| output: asis
+
+if history and history.get("train"):
+    epochs = len(history["train"])
+    first, last = history["val"][0], history["val"][-1]
+    print(
+        f"Across {epochs} epochs the validation class term fell from "
+        f"{first['class']:.3f} to {last['class']:.3f} and the IoU term from "
+        f"{first['iou']:.3f} to {last['iou']:.3f}."
+    )
+```
+
+Classification is the easy half of this task and is effectively solved within
+one epoch: the three classes differ in both palette and pattern, so the
+classification head has little to discover. Localization is where the run is
+actually spent, and the IoU term is the one that keeps moving.
+
+That is worth stating plainly rather than presenting a high headline number as
+though the whole problem were hard. The dataset was designed to make the
+detection mechanics legible, not to be difficult.
+
+## Predictions
+
+Green is the label, red the prediction, with per-image IoU above each panel.
+This is where the failure modes separate: a box in the right place at the wrong
+scale looks nothing like one that latched onto background clutter.
+
+![Predictions against ground truth on held-out images.](outputs/figures/predictions.png)
+
+## YOLOv8 Baseline
+
+```{python}
+#| label: yolo
+#| echo: false
+#| output: asis
+
+if yolo_results is None:
+    print("*The YOLO comparison appears here once the notebook has been run.*")
+else:
+    print("| Metric | YOLOv8n |\n|---|---|")
+    for key, label in (("map50", "mAP@50"), ("map50_95", "mAP@50-95"),
+                       ("precision", "Precision"), ("recall", "Recall")):
+        if key in yolo_results:
+            print(f"| {label} | {yolo_results[key]:.4f} |")
+```
+
+The two models are not equivalent and the comparison should not pretend
+otherwise. YOLO predicts a variable number of boxes through anchors and
+non-maximum suppression and arrives pretrained on COCO; the model above predicts
+exactly one box because the task guarantees exactly one object. YOLO is also
+solving a strictly harder problem than it is being asked to here.
+
+What the baseline establishes is scale: how much of any gap comes from
+architecture, and how much from a task that was constructed to be tractable.
+
+## Takeaways
+
+The two corrections that changed the result are both about **agreement between
+parts of a pipeline**, not about model capacity.
+
+The augmentation bug was invisible at every level except the one that mattered:
+the images were valid, the labels were valid, the loss decreased, and the model
+was still being taught the wrong thing half the time. The metrics bug was
+similar — the code ran, produced plausible numbers, and one of them was
+impossible for a structural reason nobody checked.
+
+Neither would have been caught by watching the loss curve. Both were caught by
+asking what a number *has* to be: precision and recall must be equal when
+predictions and ground truths are one to one, and a flipped image must have a
+flipped label.
+
+**Where this would go next:**
+
+- more than one object per image, which forces anchors or a set-based loss and
+  makes the single-box shortcut untenable
+- harder classes that share a palette, so classification stops being free
+- occlusion and scale variation, the failure modes real detectors spend their
+  capacity on
+- mAP across IoU thresholds rather than a single 0.5 cut
