@@ -1,0 +1,23 @@
+.venv/
+__pycache__/
+.ipynb_checkpoints/
+
+# Quarto scratch files outside the rendered site
+/.quarto/
+/*.quarto_ipynb*
+**/*.quarto_ipynb
+/site_libs/
+
+# Trained artifacts and generated data
+outputs/models/
+outputs/yolo_dataset/
+outputs/yolo_runs/
+*.pt
+*.pth
+*.onnx
+*.zip
+
+# Local experiment logs
+logs/
+wandb/
+runs/

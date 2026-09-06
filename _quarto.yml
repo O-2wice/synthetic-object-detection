@@ -1,0 +1,38 @@
+project:
+  type: website
+  output-dir: docs
+  render:
+    - index.qmd
+
+website:
+  title: "Simplified Object Detection"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Report
+      - text: Notebook
+        href: https://github.com/O-2wice/synthetic-object-detection/blob/main/notebooks/object-detection.ipynb
+      - text: Open in Colab
+        href: https://colab.research.google.com/github/O-2wice/synthetic-object-detection/blob/main/notebooks/object-detection.ipynb
+    right:
+      - icon: github
+        href: https://github.com/O-2wice/synthetic-object-detection
+        aria-label: GitHub repository
+
+format:
+  html:
+    theme:
+      light: cosmo
+      dark: darkly
+    toc: true
+    toc-depth: 3
+    code-fold: show
+    code-tools: true
+    smooth-scroll: true
+    df-print: paged
+
+execute:
+  freeze: auto
+  cache: false
+  warning: false
+  message: false

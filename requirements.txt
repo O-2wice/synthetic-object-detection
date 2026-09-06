@@ -1,0 +1,10 @@
+ipykernel
+jupyter-client
+nbclient
+nbformat
+matplotlib
+numpy
+pillow
+torch
+torchvision
+ultralytics
