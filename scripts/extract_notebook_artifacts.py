@@ -29,12 +29,16 @@ DEFAULT_NOTEBOOK = PROJECT_ROOT / "notebooks" / "object-detection.ipynb"
 # Figures are matched to filenames by the cell that produced them, so a rerun
 # overwrites the same files instead of accumulating numbered duplicates.
 FIGURE_NAMES = {
-    "show_samples": "training-samples",
-    "plot_history": "loss-curves",
-    "show_predictions": "predictions",
+    "display_objects": "objects",
+    "display_sample_images": "backgrounds",
+    "visualize_dataset": "dataset-samples",
+    "visualize_batch": "training-batch",
+    "summary": "model-summary",
+    "plot_losses_and_save_csv": "loss-curves",
+    "visualize_predictions": "predictions",
 }
 
-TEST_PATTERN = re.compile(r"(Class accuracy|Mean IoU|Detection rate):\s+([\d.]+)")
+TEST_PATTERN = re.compile(r"(Precision|Recall|F1 Score|Avg Inference Time):\s+([\d.]+)")
 COMPARISON_BLOCK = re.compile(
     r"COMPARISON_JSON_BEGIN\s*(.*?)\s*COMPARISON_JSON_END", re.DOTALL
 )
@@ -101,11 +105,12 @@ def extract_figures(notebook: dict, figure_dir: Path) -> list[Path]:
 
 
 METRIC_KEYS = {
-    "Class accuracy": "class_accuracy",
-    "Mean IoU": "mean_iou",
-    "Detection rate": "detection_rate",
+    "Precision": "precision",
+    "Recall": "recall",
+    "F1 Score": "f1",
+    "Avg Inference Time": "avg_inference_time_ms",
 }
-SAMPLES_PATTERN = re.compile(r"Test samples:\s+(\d+)")
+SAMPLES_PATTERN = re.compile(r"Number of test samples:\s+(\d+)")
 
 
 def extract_metrics(notebook: dict) -> tuple[dict, dict, dict]:
@@ -140,13 +145,7 @@ def extract_metrics(notebook: dict) -> tuple[dict, dict, dict]:
         if samples:
             test_results["samples"] = int(samples.group(1))
 
-    if history is None:
-        raise SystemExit(
-            "No training history found in the notebook. Run every cell, including "
-            "the one that echoes HISTORY_JSON_BEGIN, and save before extracting."
-        )
-
-    return history, test_results, comparison or {}
+    return history or {}, test_results, comparison or {}
 
 
 def main() -> int:
@@ -179,11 +178,8 @@ def main() -> int:
     print(f"Notebook:    {args.notebook.name}")
     print(f"Cells with output: {executed}")
     print(f"Figures:     {figures}")
-    epochs = len(history.get("val", []))
-    print(f"Epochs:      {epochs}")
-    if epochs:
-        best = min(entry["total"] for entry in history["val"])
-        print(f"  best validation loss: {best:.4f}")
+    if history:
+        print(f"History keys: {list(history)}")
     print(f"  test: {test_results}")
     if comparison:
         print(f"  comparison: {list(comparison)}")

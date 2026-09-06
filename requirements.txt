@@ -4,7 +4,12 @@ nbclient
 nbformat
 matplotlib
 numpy
+pandas
 pillow
 torch
 torchvision
+torchsummary
+icrawler
+rembg
+onnxruntime
 ultralytics
