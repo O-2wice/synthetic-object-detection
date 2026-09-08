@@ -24,6 +24,7 @@ workflow diagram also requires the Graphviz `dot` executable. Focused checks:
 ```powershell
 .venv\Scripts\python scripts/check_original_notebook.py
 .venv\Scripts\python scripts/verify_assets.py
+.venv\Scripts\python scripts/check_notebook_privacy.py
 ```
 
 These checks exercise notebook code and saved assets, not full detector training.

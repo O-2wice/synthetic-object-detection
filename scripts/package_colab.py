@@ -18,7 +18,8 @@ with zipfile.ZipFile(dataset) as archive:
         with archive.open(name) as stream:
             assert hashlib.file_digest(stream,'sha256').hexdigest()==expected,name
 files=[ROOT/name for name in ['notebooks/object-detection.ipynb','requirements.txt','README.md','COLAB.md','DATA.md',
-                             'scripts/verify_assets.py','scripts/check_original_notebook.py','scripts/package_colab.py']]
+                             'scripts/verify_assets.py','scripts/check_original_notebook.py','scripts/package_colab.py',
+                             'scripts/fetch_github_assets.py','scripts/check_notebook_privacy.py']]
 files.extend(p for p in (ROOT/'assets').rglob('*') if p.is_file())
 files.append(dataset)
 destination=ROOT/'data/distribution/colab-project.zip'
