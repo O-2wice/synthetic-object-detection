@@ -1,4 +1,5 @@
 """Train from a generated dataset; all options also work in the notebook."""
+raise SystemExit('Retired: this trainer uses the discarded architecture. Train with notebooks/object-detection.ipynb in Colab.')
 import argparse
 from pathlib import Path
 import sys

@@ -1,0 +1,38 @@
+[
+  {
+    "url": "https://miro.medium.com/v2/resize:fit:1400/1*hrXwIJgw51P6p1xJh_IK-g.png",
+    "status": 200,
+    "format": "PNG",
+    "size": [
+      700,
+      500
+    ],
+    "saved": "assets/illustrations/original-illustration-1.png",
+    "sha256": "c6f05587644098181643e9bbc64cfedfa8e47501ca145b8f13000d6dfdd33b73",
+    "valid": true
+  },
+  {
+    "url": "https://kotaksuratriza.wordpress.com/wp-content/uploads/2012/06/wally-and-friends.jpg",
+    "status": 200,
+    "format": "JPEG",
+    "size": [
+      490,
+      251
+    ],
+    "saved": "assets/illustrations/original-illustration-2.jpg",
+    "sha256": "3cc3bf887c971bac609a10bb6b8de3fc0ea1c9aed10ea8dfbb23931dfd928090",
+    "valid": true
+  },
+  {
+    "url": "https://i.ibb.co/XrHqLmz4/2.png",
+    "status": 200,
+    "format": "PNG",
+    "size": [
+      640,
+      193
+    ],
+    "saved": "assets/illustrations/original-illustration-3.png",
+    "sha256": "c31a3203060541d1b4334a84c28c5c2676f75884812cfe601aab098db7e23a88",
+    "valid": true
+  }
+]

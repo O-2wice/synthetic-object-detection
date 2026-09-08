@@ -1,4 +1,5 @@
 """Build the project notebook from the documented experiment sequence."""
+raise SystemExit('Retired: this generator replaces the original notebook. Edit notebooks/object-detection.ipynb directly.')
 from pathlib import Path
 import nbformat as nbf
 

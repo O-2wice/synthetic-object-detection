@@ -1,4 +1,5 @@
 """Execute the notebook with this interpreter; preserve outputs on success or failure."""
+raise SystemExit('Retired: smoke/pilot modes belong to the discarded rewrite. Run the preserved notebook in Colab; see COLAB.md.')
 import argparse
 import os
 from pathlib import Path

@@ -1,4 +1,5 @@
 """Build the saved-results section without training or mixing smoke and full runs."""
+raise SystemExit('Report preparation is deferred until the owner completes the preserved notebook in Colab. Earlier pipeline outputs do not apply.')
 import json
 from pathlib import Path
 

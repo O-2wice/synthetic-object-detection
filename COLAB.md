@@ -1,33 +1,43 @@
-# Running on a GPU
+# Run with the VS Code Colab extension
 
-The repository is private while the revised experiment is being checked. A public
-Colab badge is not a working distribution route yet.
+Open `notebooks/object-detection.ipynb` in VS Code, select the Colab GPU kernel,
+and run from the first cell. Setup downloads the character PNGs, saved backgrounds
+and the exact dataset from the public GitHub repository. No token or manual
+Google Drive upload is required to load the data.
 
-Transfer a ZIP of the working checkout to your own Colab runtime, or copy the
-project folder from Google Drive. Keep `src/`, `scripts/` and `notebooks/` together.
-In a setup cell, change to that project folder and run:
+The source images live under `assets/objects/` and `assets/backgrounds/`. The
+larger, fixed dataset is the `synthetic-scenes-v1.zip` asset on GitHub release
+`dataset-v1`. Setup checks its SHA-256 hash, and the dataset cell verifies every
+image and label before training. Both models use the same 5,000 / 1,000 / 200
+scenes prepared locally.
 
-```python
-%pip install -r requirements.txt
-```
+The notebook keeps the original models, 640-pixel images and plotting layouts.
+The custom detector trains for up to 20 epochs with early stopping; YOLOv8n
+trains for up to 100 epochs. The first download is approximately 578 MiB plus
+the small source-asset download. Later cells reuse the local runtime files.
 
-Choose a GPU runtime and confirm `torch.cuda.is_available()`. Put the three
-transparent character PNGs and reviewed backgrounds in the paths in `DATA.md`.
-Open `notebooks/object-detection.ipynb`, keep `RUN_MODE = 'experiment'`, and run
-top to bottom. The first model run downloads ImageNet ResNet18 weights; YOLO
-downloads `yolov8n.pt`.
+## Checkpoints and remote runtime storage
 
-Use local runtime storage for image data. Point `RUN_DIR` to a persistent Drive
-folder if resume checkpoints should survive runtime loss. Set `RESUME = True`
-to continue custom-model training with the same data and settings. Restore both
-`last.pt` and `best.pt`; the checkpoint verifies the dataset fingerprint.
+`USE_DRIVE` defaults to `False` for the VS Code Colab extension. Checkpoints are
+written after completed epochs under `/content/synthetic-object-detection/outputs/original-notebook/`.
+They survive rerunning cells in the same runtime, but a reset can erase them.
 
-The YOLO helper starts a fresh run and does not implement interrupted-run resume.
+To preserve progress, download the checkpoint files before ending the runtime.
+The final export cell creates `outputs/original-notebook/run-artifacts.zip`
+with metrics, figures, custom best/last checkpoints, YOLO run files and the dataset
+manifest. Save the executed notebook too. For earlier interruption, the same
+export cell can be run after the YOLO setup cell has defined its paths, or copy
+the checkpoint folders directly.
 
-Save the executed notebook and copy `outputs/metrics/`, `outputs/figures/` and the
-dataset manifest back to the checkout. Run `scripts/build_report.py` to refresh
-the report. `outputs/validation/` contains smoke checks, not benchmark results.
+To resume in a new runtime, run setup and restore the archive's `models/`,
+`metrics/`, and `yolo/` folders under `outputs/original-notebook/` before running
+training. Keep the custom `best_model.pth` and `last_checkpoint.pth` together.
+The custom checkpoint restores Adam, the scheduler, mixed precision, random
+states and history. YOLO resumes from its own `last.pt`; an incomplete epoch
+runs again. GPU and library differences can affect numerical reproducibility.
 
-If only the executed notebook comes back, `python scripts/extract_notebook_artifacts.py`
-recovers its tagged JSON and figures. It rejects an incomplete run or execution
-errors, and keeps pilot/smoke outputs separate from benchmark results.
+In browser Colab, optional `USE_DRIVE = True` mounts Drive and writes checkpoints
+there. That route is optional and is not required for GitHub image loading.
+
+The Open in Colab badge opens the current notebook on GitHub. The full notebook
+run in your Colab environment still precedes the new Quarto write-up.
