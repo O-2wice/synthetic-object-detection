@@ -30,7 +30,7 @@ are under `MyDrive/synthetic-object-detection/yolo/train/weights/`. Metrics and
 figures are saved under that same project folder on Drive. The image dataset
 stays on the runtime's local disk for training speed.
 
-The final export cell creates `outputs/original-notebook/run-artifacts.zip`
+The final export cell creates `outputs/original-notebook/run-artifacts-pool3.zip`
 with metrics, figures, custom best/last checkpoints, YOLO run files and the dataset
 manifest and copies it to Drive. Save the executed notebook too. The export
 cell is also usable after custom training, before the YOLO section. Checkpoints

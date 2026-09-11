@@ -65,14 +65,14 @@ with tempfile.TemporaryDirectory(prefix='recovery-check-',dir=ROOT/'data') as tm
     last=models/'last_checkpoint.pth'; last.write_bytes(b'last-fixture')
     output=project/'outputs/original-notebook'
     yolo_project=drive/'yolo'
-    scope.update(OUTPUT_DIR=output,METRIC_DIR=metrics,FIGURE_DIR=figures,
+    scope.update(OUTPUT_DIR=output,METRIC_DIR=metrics,FIGURE_DIR=figures,RUN_TAG="pool3",
                  BEST_PATH=best,LAST_PATH=last,YOLO_PROJECT=yolo_project,DRIVE_DIR=drive)
     definitions(5,{'export_run_artifacts'},scope)
     result=scope['export_run_artifacts']()
     with zipfile.ZipFile(result) as zipped:
         assert {'models/best_model.pth','models/last_checkpoint.pth','metrics/history.json',
                 'figures/plot.png','dataset-manifest.json'} <= set(zipped.namelist())
-    assert digest(result)==digest(drive/'run-artifacts.zip')
+    assert digest(result)==digest(drive/'run-artifacts-pool3.zip')
     print('PASS: export works before YOLO and includes Drive-hosted metrics, figures and checkpoints.')
 
     yolo_run=yolo_project/'train'
