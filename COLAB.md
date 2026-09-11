@@ -18,26 +18,43 @@ the small source-asset download. Later cells reuse the local runtime files.
 
 ## Checkpoints and remote runtime storage
 
-`USE_DRIVE` defaults to `False` for the VS Code Colab extension. Checkpoints are
-written after completed epochs under `/content/synthetic-object-detection/outputs/original-notebook/`.
-They survive rerunning cells in the same runtime, but a reset can erase them.
+`USE_DRIVE` defaults to `True`. The environment cell mounts Google Drive and
+stops before training if mounting fails. In VS Code, use the command palette
+command **Colab: Mount Google Drive to Server...**, complete authorization and
+rerun the environment cell. This command is documented in the
+[official extension README](https://github.com/googlecolab/colab-vscode).
 
-To preserve progress, download the checkpoint files before ending the runtime.
+Custom checkpoints are saved after each completed epoch under
+`MyDrive/synthetic-object-detection/models/original-notebook/`. YOLO checkpoints
+are under `MyDrive/synthetic-object-detection/yolo/train/weights/`. Metrics and
+figures are saved under that same project folder on Drive. The image dataset
+stays on the runtime's local disk for training speed.
+
 The final export cell creates `outputs/original-notebook/run-artifacts.zip`
 with metrics, figures, custom best/last checkpoints, YOLO run files and the dataset
-manifest. Save the executed notebook too. For earlier interruption, the same
-export cell can be run after the YOLO setup cell has defined its paths, or copy
-the checkpoint folders directly.
+manifest and copies it to Drive. Save the executed notebook too. The export
+cell is also usable after custom training, before the YOLO section. Checkpoints
+already saved to Drive do not depend on reaching the export cell.
 
-To resume in a new runtime, run setup and restore the archive's `models/`,
-`metrics/`, and `yolo/` folders under `outputs/original-notebook/` before running
-training. Keep the custom `best_model.pth` and `last_checkpoint.pth` together.
+To resume in a new runtime, mount the same Drive and run setup again. The notebook
+finds the saved checkpoints automatically. Keep the custom `best_model.pth` and
+`last_checkpoint.pth` together. When moving a YOLO run between filesystems, a
+derived resume checkpoint adjusts the saved data path without changing its
+weights, optimizer or completed epoch. The original `last.pt` is preserved.
 The custom checkpoint restores Adam, the scheduler, mixed precision, random
 states and history. YOLO resumes from its own `last.pt`; an incomplete epoch
 runs again. GPU and library differences can affect numerical reproducibility.
 
-In browser Colab, optional `USE_DRIVE = True` mounts Drive and writes checkpoints
-there. That route is optional and is not required for GitHub image loading.
+If you deliberately turn off `USE_DRIVE`, checkpoints return to temporary
+runtime storage. Download them before ending that runtime; saving the notebook
+does not save weights. Restore the export's `models/`, `metrics/` and `yolo/`
+folders under `outputs/original-notebook/` for local resumption. A runtime that
+was already deleted cannot be recovered from notebook outputs alone.
+
+Normal local and Colab runs download the same frozen dataset. Ultralytics is
+pinned to 8.4.143, the version used in the saved Colab run. Other runtime versions
+are recorded in `metrics/runtime.json`; saved random states do not guarantee
+identical numerical results across different hardware or libraries.
 
 The Open in Colab badge opens the current notebook on GitHub. The full notebook
 run in your Colab environment still precedes the new Quarto write-up.

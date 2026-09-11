@@ -7,7 +7,7 @@ nbformat>=5.10
 nbclient>=0.10
 jupyter-client>=8.6
 ipykernel>=6.29
-ultralytics>=8.3,<9
+ultralytics==8.4.143
 requests>=2.31
 icrawler>=0.6
 pymupdf>=1.24
