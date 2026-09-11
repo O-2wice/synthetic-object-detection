@@ -72,7 +72,7 @@ a reviewed pool of 22 doodle backgrounds.
 
 The cut-outs come from Candlewick Press character sheets, with illustrations
 by Martin Handford. The source PDF, preparation details and background source
-records are retained in [the data documentation](DATA.md). Wenda replaces the
+records are retained in [the data documentation](notes/DATA.md). Wenda replaces the
 unavailable Wilma asset from the earlier notebook.
 
 ### Compositing creates the supervision

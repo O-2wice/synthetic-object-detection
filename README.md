@@ -40,11 +40,11 @@ what the held-out numbers do and do not establish. Render it with
 `quarto render`; rendering reads the saved figures and metrics from
 `outputs/completed-run/` and does not execute training.
 
-The [run verification record](RUN.md) documents the imported
+The [run verification record](notes/RUN.md) documents the imported
 notebook, the Drive export and the checks. Earlier pilot results are not used.
 
-Follow [COLAB.md](COLAB.md) to use the prepared local dataset and persistent
-checkpoints. [DATA.md](DATA.md) records the saved source assets and the approved
+Follow [notes/COLAB.md](notes/COLAB.md) to use the prepared local dataset and persistent
+checkpoints. [notes/DATA.md](notes/DATA.md) records the saved source assets and the approved
 Wenda replacement. Both models use the same frozen 5,000 / 1,000 / 200 scenes.
 
 For local setup, install `requirements.txt` in a Python 3.11+ environment; the

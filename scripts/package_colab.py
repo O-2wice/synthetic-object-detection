@@ -17,7 +17,7 @@ with zipfile.ZipFile(dataset) as archive:
     for name,expected in manifest['files'].items():
         with archive.open(name) as stream:
             assert hashlib.file_digest(stream,'sha256').hexdigest()==expected,name
-files=[ROOT/name for name in ['notebooks/object-detection.ipynb','requirements.txt','README.md','COLAB.md','DATA.md',
+files=[ROOT/name for name in ['notebooks/object-detection.ipynb','requirements.txt','README.md','notes/COLAB.md','notes/DATA.md',
                              'scripts/verify_assets.py','scripts/check_original_notebook.py','scripts/package_colab.py',
                              'scripts/fetch_github_assets.py','scripts/check_notebook_privacy.py',
                              'scripts/check_notebook_recovery.py']]

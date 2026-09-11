@@ -48,9 +48,16 @@ experiment including YOLO, review convergence and predictions, and check the
 rendered report against the actual artifacts. The repository stays private.
 
 Initial checks used the existing colorization environment without modifying it.
-The detection project's own environment now uses Python 3.11, PyTorch 2.14.0+cpu,
-torchvision 0.29.0+cpu and Ultralytics 8.4.142. `requirements-lock.txt` records the
-complete local package versions. No CUDA training result is claimed.
+The detection project's own environment uses Python 3.11 with the CPU builds of
+PyTorch, torchvision and Ultralytics, installed from `requirements.txt`. That
+environment runs the checks only; no CUDA training result is claimed from it.
+
+The versions that produced the reported results are a separate matter, and are
+recorded by the run itself in
+[`outputs/completed-run/metrics/runtime.json`](../outputs/completed-run/metrics/runtime.json)
+rather than asserted here. An earlier `requirements-lock.txt` pinned the local
+check environment, which differed from the Colab run on every package, so it
+described an environment no result came from.
 
 ## Implementation references
 

@@ -4,9 +4,9 @@ project:
   resources:
     - assets/social-card.png
     - assets/favicon.png
-    - AUDIT.md
-    - DATA.md
-    - COLAB.md
+    - notes/AUDIT.md
+    - notes/DATA.md
+    - notes/COLAB.md
     - outputs/completed-run/metrics/*.json
     - outputs/completed-run/yolo/results.csv
     - outputs/completed-run/provenance.json
