@@ -39,10 +39,20 @@ website:
         href: https://github.com/O-2wice/synthetic-object-detection/blob/main/notebooks/object-detection.ipynb
       - text: Open in Colab
         href: https://colab.research.google.com/github/O-2wice/synthetic-object-detection/blob/main/notebooks/object-detection.ipynb
+      # Spelled out as well as shown as an icon on the right: an unlabelled glyph
+      # in the corner is easy to miss, and the repository is the main thing a
+      # reader wants after the report.
+      - text: Code
+        href: https://github.com/O-2wice/synthetic-object-detection
     right:
       - icon: github
         href: https://github.com/O-2wice/synthetic-object-detection
         aria-label: GitHub repository
+
+  page-footer:
+    border: true
+    left: "Source, data and the executed notebook: [github.com/O-2wice/synthetic-object-detection](https://github.com/O-2wice/synthetic-object-detection)"
+    right: "[Report an issue](https://github.com/O-2wice/synthetic-object-detection/issues) &nbsp;·&nbsp; [Notebook](https://github.com/O-2wice/synthetic-object-detection/blob/main/notebooks/object-detection.ipynb)"
 
 format:
   html:
