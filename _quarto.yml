@@ -2,22 +2,43 @@ project:
   type: website
   output-dir: docs
   resources:
-    - notebooks/object-detection.ipynb
+    - assets/social-card.png
+    - assets/favicon.png
     - AUDIT.md
     - DATA.md
     - COLAB.md
+    - outputs/completed-run/metrics/*.json
+    - outputs/completed-run/yolo/results.csv
+    - outputs/completed-run/provenance.json
   render:
     - index.qmd
 
 website:
   title: "Synthetic Object Detection"
   description: "A custom ResNet18 detector and YOLOv8n on a controlled single-object task."
+  site-url: "https://o-2wice.github.io/synthetic-object-detection/"
+  repo-url: "https://github.com/O-2wice/synthetic-object-detection"
+  # Social preview and canonical URL. Without these a shared link renders as a
+  # bare URL with no title, description or image, and search engines have no
+  # single preferred address for the page.
+  favicon: assets/favicon.png
+  image: assets/social-card.png
+  # 1200x630 is the size link previews crop to; a taller figure gets centre-cropped
+  # and loses its caption area.
+  open-graph:
+    image-width: 1200
+    image-height: 630
+    locale: en_GB
+  twitter-card:
+    card-style: summary_large_image
   navbar:
     left:
       - href: index.qmd
         text: Report
       - text: Notebook
-        href: notebooks/object-detection.ipynb
+        href: https://github.com/O-2wice/synthetic-object-detection/blob/main/notebooks/object-detection.ipynb
+      - text: Open in Colab
+        href: https://colab.research.google.com/github/O-2wice/synthetic-object-detection/blob/main/notebooks/object-detection.ipynb
     right:
       - icon: github
         href: https://github.com/O-2wice/synthetic-object-detection
@@ -25,9 +46,12 @@ website:
 
 format:
   html:
+    lang: en
+    # cosmo/darkly stay as the base so the layout matches the other reports; the
+    # project SCSS layers a palette on top, taken from this project's own figures.
     theme:
-      light: cosmo
-      dark: darkly
+      light: [cosmo, assets/theme-light.scss]
+      dark: [darkly, assets/theme-dark.scss]
     toc: true
     toc-depth: 3
     code-fold: show
@@ -36,6 +60,7 @@ format:
     df-print: paged
 
 execute:
+  enabled: false
   freeze: auto
   cache: false
   warning: false

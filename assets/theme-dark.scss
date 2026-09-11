@@ -1,0 +1,105 @@
+/*-- scss:defaults --*/
+$box-truth:   #4ade9b;
+$box-predict: #ff6b6b;
+$ink:         #e8eaed;
+$muted:       #9aa3b2;
+$paper:       #14171f;
+
+$primary:    $box-truth;
+$body-color: $ink;
+$body-bg:    $paper;
+$link-color: $box-truth;
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap');
+$font-family-sans-serif: "Source Sans 3", -apple-system, "Segoe UI", Roboto, sans-serif;
+$headings-font-family:   "Space Grotesk", $font-family-sans-serif;
+$font-size-root: 17px;
+$headings-font-weight: 700;
+
+// Without these, darkly paints the navbar with $primary, which turns the whole
+// bar the bright box-green. The bar should recede; the accent belongs on links
+// and rules, not on 200px of chrome.
+$navbar-bg: #0e1117;
+$navbar-fg: #cfd6e4;
+$navbar-hl: $box-truth;
+$body-secondary: $muted;
+
+/*-- scss:rules --*/
+h2 {
+  border-bottom: 2px solid rgba(74, 222, 155, .22);
+  padding-bottom: .3rem;
+  margin-top: 2.6rem;
+  letter-spacing: -.01em;
+}
+h3 { color: $muted; margin-top: 1.9rem; }
+
+figure { margin: 2rem 0; }
+figcaption {
+  font-size: .9rem;
+  color: $muted;
+  border-left: 3px solid rgba(74, 222, 155, .4);
+  padding-left: .7rem;
+}
+// Plots are rendered on white; a light card keeps them from burning on dark.
+figure img { background: #fff; border-radius: 4px; padding: 6px; }
+
+table { font-variant-numeric: tabular-nums; }
+thead th { border-bottom: 2px solid $box-truth !important; }
+
+strong { color: $box-predict; font-weight: 600; }
+code:not(.sourceCode) { color: $box-predict; background: rgba(255, 107, 107, .1); }
+
+blockquote {
+  border-left: 4px solid $box-truth;
+  background: rgba(74, 222, 155, .07);
+  padding: .8rem 1rem;
+}
+
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: .9rem;
+  margin: 1.6rem 0 2.2rem;
+}
+.stat {
+  border: 1px solid rgba(74, 222, 155, .25);
+  border-top: 3px solid #4ade9b;
+  border-radius: 6px;
+  padding: .9rem 1rem;
+  background: #1b1f29;
+  p { margin: 0; }
+  strong {
+    display: block;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 1.75rem;
+    line-height: 1.1;
+    color: #e8eaed;
+    font-weight: 700;
+  }
+  em {
+    display: block;
+    margin-top: .3rem;
+    font-style: normal;
+    font-size: .84rem;
+    color: #9aa3b2;
+    line-height: 1.35;
+  }
+}
+.stat.alt { border-top-color: #ff6b6b; border-color: rgba(255, 107, 107, .25); }
+.lead-in { font-size: 1.16rem; line-height: 1.6; color: #d4dae6; }
+
+.pipeline {
+  margin: 1.6rem 0 2rem;
+  svg { width: 100%; height: auto; }
+  p { font-size: .9rem; color: #9aa3b2; margin-top: .4rem; }
+
+  .pl-in   { fill: rgba(74, 222, 155, .1); stroke: #4ade9b; stroke-width: 1.4; }
+  .pl-step { fill: #1b1f29; stroke: rgba(232, 234, 237, .35); stroke-width: 1.4; }
+  .pl-out  { fill: rgba(255, 107, 107, .1); stroke: #ff6b6b; stroke-width: 1.4; }
+  .pl-a    { fill: none; stroke: rgba(232, 234, 237, .45); stroke-width: 1.4; }
+
+  text { text-anchor: middle; }
+  .pl-t { font-family: "Space Grotesk", sans-serif; font-size: 15px; font-weight: 600; fill: #e8eaed; }
+  .pl-s { font-size: 12.5px; fill: #9aa3b2; }
+  .pl-m { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; fill: #ff6b6b; }
+}

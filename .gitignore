@@ -26,3 +26,7 @@ runs/
 /data/
 /notebook-review.txt
 *.tmp
+
+# Graphviz artifacts written by the notebook workflow cell
+/object_detection_flowchart
+/object_detection_flowchart.png

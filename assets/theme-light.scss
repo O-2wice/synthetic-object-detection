@@ -1,0 +1,126 @@
+/*-- scss:defaults --*/
+// The palette is taken from the figures themselves: ground-truth boxes are drawn
+// in green and predictions in red throughout the report, so the page and the
+// plots speak the same language.
+$box-truth:   #1b7f5a;   // ground truth
+$box-predict: #c62f2f;   // prediction
+$ink:         #1c2029;
+$muted:       #5a6070;
+$paper:       #faf9f6;   // the generated backgrounds' base colour
+
+$primary:   $box-truth;
+$body-color: $ink;
+$body-bg:    $paper;
+$link-color: $box-truth;
+
+// Space Grotesk for headings gives the page a technical, drawn feel that the
+// default system stack does not; the body stays a workhorse humanist sans.
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap');
+$font-family-sans-serif: "Source Sans 3", -apple-system, "Segoe UI", Roboto, sans-serif;
+$headings-font-family:   "Space Grotesk", $font-family-sans-serif;
+$font-size-root: 17px;
+$headings-font-weight: 700;
+
+$navbar-bg: $ink;
+$navbar-fg: $paper;
+$toc-color: $muted;
+
+/*-- scss:rules --*/
+// A hairline rule under each major section gives the long report a rhythm and
+// makes the structure visible while scrolling.
+h2 {
+  border-bottom: 2px solid rgba(27, 127, 90, .18);
+  padding-bottom: .3rem;
+  margin-top: 2.6rem;
+  letter-spacing: -.01em;
+}
+h3 { color: $muted; margin-top: 1.9rem; }
+
+// Figures carry most of the evidence here, so give them room and a caption that
+// reads as commentary rather than as body text.
+figure { margin: 2rem 0; }
+figcaption {
+  font-size: .9rem;
+  color: $muted;
+  border-left: 3px solid rgba(27, 127, 90, .35);
+  padding-left: .7rem;
+}
+
+// Numbers are the point of the results tables; right-aligned and tabular so
+// digits line up column-wise.
+table { font-variant-numeric: tabular-nums; }
+thead th { border-bottom: 2px solid $box-truth !important; }
+
+strong { color: $box-predict; font-weight: 600; }
+code:not(.sourceCode) { color: $box-predict; background: rgba(198, 47, 47, .07); }
+
+blockquote {
+  border-left: 4px solid $box-truth;
+  background: rgba(27, 127, 90, .05);
+  padding: .8rem 1rem;
+}
+
+// ---------------------------------------------------------------------------
+// Result panel
+//
+// A long report buries its finding. These cards put the numbers on the first
+// screen so a reader knows the outcome before deciding to read the method, and
+// they give the top of the page something other than a wall of prose.
+// ---------------------------------------------------------------------------
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: .9rem;
+  margin: 1.6rem 0 2.2rem;
+}
+.stat {
+  border: 1px solid rgba(27, 127, 90, .25);
+  border-top: 3px solid #1b7f5a;
+  border-radius: 6px;
+  padding: .9rem 1rem;
+  background: #fff;
+  p { margin: 0; }
+  strong {
+    display: block;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 1.75rem;
+    line-height: 1.1;
+    color: #1c2029;
+    font-weight: 700;
+  }
+  em {
+    display: block;
+    margin-top: .3rem;
+    font-style: normal;
+    font-size: .84rem;
+    color: #5a6070;
+    line-height: 1.35;
+  }
+}
+.stat.alt { border-top-color: #c62f2f; border-color: rgba(198, 47, 47, .25); }
+
+// Lead paragraph: larger, so the opening reads as a lead rather than body copy.
+.lead-in { font-size: 1.16rem; line-height: 1.6; color: #2b3140; }
+
+// ---------------------------------------------------------------------------
+// Pipeline diagram
+//
+// Drawn inline rather than exported, so it inherits the page palette and stays
+// crisp at any zoom. Colours are set here, not on the SVG, so the dark theme can
+// restate them without a second copy of the drawing.
+// ---------------------------------------------------------------------------
+.pipeline {
+  margin: 1.6rem 0 2rem;
+  svg { width: 100%; height: auto; }
+  p { font-size: .9rem; color: #5a6070; margin-top: .4rem; }
+
+  .pl-in   { fill: rgba(27, 127, 90, .07); stroke: #1b7f5a; stroke-width: 1.4; }
+  .pl-step { fill: #fff; stroke: rgba(28, 32, 41, .35); stroke-width: 1.4; }
+  .pl-out  { fill: rgba(198, 47, 47, .06); stroke: #c62f2f; stroke-width: 1.4; }
+  .pl-a    { fill: none; stroke: rgba(28, 32, 41, .45); stroke-width: 1.4; }
+
+  text { text-anchor: middle; }
+  .pl-t { font-family: "Space Grotesk", sans-serif; font-size: 15px; font-weight: 600; fill: #1c2029; }
+  .pl-s { font-size: 12.5px; fill: #5a6070; }
+  .pl-m { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; fill: #c62f2f; }
+}

@@ -26,8 +26,8 @@ keeps those prepared dimensions when compositing onto 640-pixel backgrounds.
 their source URLs and SHA-256 hashes. Contact-sheet review excluded 18 related
 variants, previews and unsuitable compositions, leaving 22 backgrounds.
 The exclusion list is saved in `assets/backgrounds/review.json`; generation reads
-it before splitting sources. Saved files, not a repeated search, reproduce this
-collection. These sources have not been cleared for public redistribution.
+it before generation. Saved files, not a repeated search, reproduce this
+collection. Original source URLs and attribution remain recorded with the saved assets.
 
 Run `python scripts/verify_assets.py` to verify all 44 saved files against their
 hashes. `--restore-missing` re-downloads missing source files only when their
@@ -51,16 +51,26 @@ The original backgrounds came from doodle searches too, but were not saved in
 the available checkout. The new collection is not the original training dataset.
 Review any replacement collection for near duplicates and target characters.
 
-At least ten distinct readable backgrounds are required. The generator removes
-exact decoded duplicates, splits source identities 80% / 10% / 10%, and only then
-samples backgrounds for composites. A manifest records object hashes, background
-hashes, class counts, generation seed and hashes of every generated image/label.
-Training verifies image and label hashes before using the dataset.
+The preserved notebook samples from the same background pool for all three
+splits, as the original did. It creates 5,000 training, 1,000 validation and 200
+test scenes at 640 × 640 pixels, each with one randomly selected cut-out and
+its normalized bounding box. Test scenes are new composites of familiar source
+artwork; they do not measure generalization to unseen backgrounds.
+
+The fixed local archive is `data/distribution/synthetic-scenes-v1.zip`.
+`assets/sources/dataset-archive.sha256` identifies the archive, and
+`assets/sources/dataset-manifest.json` records source hashes, split sizes, seed
+and hashes of all generated images and labels. Colab extracts and verifies this
+same archive; it does not generate a substitute dataset.
 
 Generated composites remain under the ignored `data/` directory. Choose a new
 generated directory when changing source assets or preprocessing.
-Reusing cut-outs across splits is intentional; reusing backgrounds is not.
+Both cut-outs and source backgrounds are reused across splits, matching the
+original generation method.
 
-Geometric smoke fixtures are created by `scripts/smoke_assets.py`. Their filenames
-occupy the same class slots but they are not character data. They never populate
-the benchmark results table.
+Earlier smoke/pilot artifacts belong to the discarded rewrite and are not
+validation results for the preserved notebook.
+
+The same dataset archive is also available as the synthetic-scenes-v1.zip
+asset on GitHub release dataset-v1. Colab downloads it automatically alongside
+the source PNGs and verifies its saved checksum.

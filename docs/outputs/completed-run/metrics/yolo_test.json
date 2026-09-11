@@ -1,0 +1,10 @@
+{
+  "dataset_id": "7107ea37118e53dfaf6c6493e9ff4b27aad3464a0add20a4bc69b2314b07f961",
+  "metrics": {
+    "metrics/precision(B)": 1.0,
+    "metrics/recall(B)": 1.0,
+    "metrics/mAP50(B)": 0.995,
+    "metrics/mAP50-95(B)": 0.9950000000000002,
+    "fitness": 0.9950000000000002
+  }
+}
