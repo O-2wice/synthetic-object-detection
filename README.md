@@ -7,7 +7,10 @@ Recognize a character in a cluttered scene and locate its bounding box.
 The [notebook](notebooks/object-detection.ipynb) preserves the original experiment:
 synthetic scenes, dataset inspection, ResNet18/VGG16 model comparison, custom
 classification and box regression, and YOLOv8n. Its prose presents the project;
-its model architecture and figure layouts follow the original notebook.
+its figure layouts follow the original notebook. The architecture follows it
+too, with one documented exception: the neck's pooling grid is configurable
+via `POOL_GRID`, and `POOL_GRID = 1` reproduces the original exactly. The
+checks assert that equivalence rather than asserting the source is identical.
 
 **Current stage:** preparing for the owner's full Colab run. The repository is public so Colab can fetch its saved assets directly.
 The old Quarto write-up has been removed; the new write-up follows that run.
