@@ -58,6 +58,8 @@ website:
 
 format:
   html:
+    # Without this Quarto appends the site title, repeating it in the tab
+    title-prefix: ""
     lang: en
     # cosmo/darkly stay as the base so the layout matches the other reports; the
     # project SCSS layers a palette on top, taken from this project's own figures.

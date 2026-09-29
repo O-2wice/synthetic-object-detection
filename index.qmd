@@ -1,5 +1,6 @@
 ---
 title: "Synthetic Object Detection"
+pagetitle: "Synthetic object detection in PyTorch: ResNet18 vs YOLOv8n"
 subtitle: "A PyTorch comparison of a custom ResNet18 detector and a fine-tuned YOLOv8n"
 description: >-
   Finding one character in a cluttered scene. A custom ResNet18 detector with
