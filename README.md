@@ -15,9 +15,9 @@ annotating it afterwards.
 |                             | Custom ResNet18 | YOLOv8n |
 | --------------------------- | --------------: | ------: |
 | Trainable parameters        |      13,539,143 | 3,006,233 |
-| Correct at IoU 0.5          |     **131/200** | — |
-| Mean IoU                    |          0.5746 | — |
-| Native mAP50-95             |               — | **0.995** |
+| Correct at IoU 0.5          |     **131/200** |     n/a |
+| Mean IoU                    |          0.5746 |     n/a |
+| Native mAP50-95             |             n/a | **0.995** |
 
 The two columns are scored under different protocols, which the report explains;
 they are not a single leaderboard.
@@ -59,3 +59,7 @@ workflow diagram also requires the Graphviz `dot` executable. Focused checks:
 These checks exercise notebook code and saved assets, not full detector training.
 The earlier notebook generator, trainer and report builder are disabled to
 prevent replacing the preserved notebook or mixing results from different code.
+
+## License
+
+[MIT](LICENSE). The dataset and any pretrained weights keep their own licences.
